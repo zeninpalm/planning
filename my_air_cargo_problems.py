@@ -70,6 +70,11 @@ class AirCargoProblem(Problem):
                         effect_add = [expr("In({},{})".format(cargo, plane))]
                         effect_remove = [expr("At({}, {})".format(cargo, airport))]
 
+                        load = Action(expr("Load({}, {}, {})".format(cargo, plane, airport)),
+                                      [precondition_pos, precondition_neg],
+                                      [effect_add, effect_remove])
+                        loads.append(load)
+
             return loads
 
         def unload_actions():
@@ -79,6 +84,20 @@ class AirCargoProblem(Problem):
             """
             unloads = []
             # TODO create all Unload ground actions from the domain Unload action
+            for cargo in self.cargos:
+                for plane in self.planes:
+                    for airport in self.airports:
+                        precondition_pos = [expr("In({}, {})".format(cargo, plane)),
+                                            expr("At({}, {})".format(plane, airport))]
+                        precondition_neg = []
+                        effect_add = [expr("At({},{})".format(cargo, airport))]
+                        effect_remove = [expr("In({}, {})".format(cargo, plane))]
+
+                        unload = Action(expr("Load({}, {}, {})".format(cargo, plane, airport)),
+                                      [precondition_pos, precondition_neg],
+                                      [effect_add, effect_remove])
+                        unloads.append(unload)
+
             return unloads
 
         def fly_actions():
