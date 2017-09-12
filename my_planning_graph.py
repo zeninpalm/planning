@@ -526,6 +526,7 @@ class PlanningGraph():
         :return: bool
         """
         # TODO test for Inconsistent Support between nodes
+        for action in node_s1.parents:
         return False
 
     def h_levelsum(self) -> int:
