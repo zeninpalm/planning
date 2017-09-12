@@ -504,7 +504,7 @@ class PlanningGraph():
         """
         # TODO test for negation between nodes
         if node_s1.is_pos != node_s2.is_pos:
-            if not node_s1.__eq__(node_s2):
+            if node_s1.symbol == node_s2.symbol:
                 return True
 
         return False
